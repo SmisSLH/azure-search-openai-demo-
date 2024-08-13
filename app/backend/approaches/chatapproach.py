@@ -10,18 +10,18 @@ from approaches.approach import Approach
 
 class ChatApproach(Approach, ABC):
     query_prompt_few_shots: list[ChatCompletionMessageParam] = [
-        {"role": "user", "content": "How did crypto do last year?"},
-        {"role": "assistant", "content": "Summarize Cryptocurrency Market Dynamics from last year"},
-        {"role": "user", "content": "What are my health plans?"},
-        {"role": "assistant", "content": "Show available health plans"},
+        {"role": "user", "content": "JR東海の事業戦略について教えてください。"},
+        {"role": "assistant", "content": "JR東海の事業戦略を説明する。"},
+        {"role": "user", "content": "三井不動産はどのようなIT戦略を持っているか？"},
+        {"role": "assistant", "content": "三井不動産のIT戦略の内容を説明する。"},
     ]
     NO_RESPONSE = "0"
 
     follow_up_questions_prompt_content = """Generate 3 very brief follow-up questions that the user would likely ask next.
     Enclose the follow-up questions in double angle brackets. Example:
-    <<Are there exclusions for prescriptions?>>
-    <<Which pharmacies can be ordered from?>>
-    <<What is the limit for over-the-counter medication?>>
+    <<具体的に、どんな商業施設をターゲットにして、その具体的な施策について教えてください。>>
+    <<その戦略を立てるに至った理由や、根拠となるデータなどの背景がありますか？>>
+    <<その戦略を実現するために、どんな課題を解決すべきか？>>
     Do no repeat questions that have already been asked.
     Make sure the last question ends with ">>".
     """
@@ -32,7 +32,7 @@ class ChatApproach(Approach, ABC):
     Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
     Do not include any text inside [] or <<>> in the search query terms.
     Do not include any special characters like '+'.
-    If the question is not in English, translate the question to English before generating the search query.
+    Generate the search query in Japanese.
     If you cannot generate a search query, return just the number 0.
     """
 

@@ -3,15 +3,15 @@ import { Example } from "./Example";
 import styles from "./Example.module.css";
 
 const DEFAULT_EXAMPLES: string[] = [
-    "What is included in my Northwind Health Plus plan that is not in standard?",
-    "What happens in a performance review?",
-    "What does a Product Manager do?"
+    "三井不動産の2024年度以降の事業戦略について、どのような戦略を立てていますか？",
+    "JR東海の事業戦略における商業施設領域で、具体的な戦略方針は何ですか？",
+    "Fast Retailingの事業戦略において、活用しているITソリューションは何がありますか？また、それはどのような目的を達成するために使用されますか？"
 ];
 
 const GPT4V_EXAMPLES: string[] = [
-    "Compare the impact of interest rates and GDP in financial markets.",
-    "What is the expected trend for the S&P 500 index over the next five years? Compare it to the past S&P 500 performance",
-    "Can you identify any correlation between oil prices and stock market trends?"
+    "三井不動産の2024年度以降の事業戦略について、どのような戦略を立てていますか？",
+    "JR東海の事業戦略における商業施設領域で、具体的な戦略方針は何ですか？",
+    "Fast Retailingの事業戦略において、活用しているITソリューションは何がありますか？また、それはどのような目的を達成するために使用されますか？"
 ];
 
 interface Props {

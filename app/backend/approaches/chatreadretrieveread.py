@@ -55,10 +55,11 @@ class ChatReadRetrieveReadApproach(ChatApproach):
 
     @property
     def system_message_chat_conversation(self):
-        return """Assistant helps the company employees with their healthcare plan questions, and questions about the employee handbook. Be brief in your answers.
-        Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
-        For tabular information return it as an html table. Do not return markdown format. If the question is not in English, answer in the language used in the question.
-        Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brackets to reference the source, for example [info1.txt]. Don't combine sources, list each source separately, for example [info1.txt][info2.pdf].
+        return """Assistant helps the company employees in sales devisi with questions about clients' business, like strategies, financial conditions. The aim is to help those employees to make suggestions to improve our clients' business.on
+        Be concise in your answers.Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. 
+        If asking a clarifying question to the user would help, ask the question.For tabular information return it as an html table. Do not return markdown format. The questions are always asked in Japanese, answer them in Japanese.
+        Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brackets to reference the source, for example [info1.pdf]. 
+        Don't combine sources, list each source separately, for example [info1.txt][info2.pdf].
         {follow_up_questions_prompt}
         {injected_prompt}
         """
@@ -114,7 +115,7 @@ class ChatReadRetrieveReadApproach(ChatApproach):
                         "properties": {
                             "search_query": {
                                 "type": "string",
-                                "description": "Query string to retrieve documents from azure search eg: 'Health care plan'",
+                                "description": "Query string to retrieve documents from azure search eg: 'イオン_経営報告_2024年2月期主要企業の状況'",
                             }
                         },
                         "required": ["search_query"],
@@ -124,7 +125,7 @@ class ChatReadRetrieveReadApproach(ChatApproach):
         ]
 
         # STEP 1: Generate an optimized keyword search query based on the chat history and the last question
-        query_response_token_limit = 100
+        query_response_token_limit = 150
         query_messages = build_messages(
             model=self.chatgpt_model,
             system_prompt=self.query_prompt_template,
@@ -179,7 +180,7 @@ class ChatReadRetrieveReadApproach(ChatApproach):
             self.follow_up_questions_prompt_content if overrides.get("suggest_followup_questions") else "",
         )
 
-        response_token_limit = 1024
+        response_token_limit = 1500
         messages = build_messages(
             model=self.chatgpt_model,
             system_prompt=system_message,

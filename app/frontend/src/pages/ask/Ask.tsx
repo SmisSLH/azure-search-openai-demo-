@@ -31,7 +31,7 @@ export function Component(): JSX.Element {
     const [minimumRerankerScore, setMinimumRerankerScore] = useState<number>(0);
     const [minimumSearchScore, setMinimumSearchScore] = useState<number>(0);
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
-    const [retrieveCount, setRetrieveCount] = useState<number>(3);
+    const [retrieveCount, setRetrieveCount] = useState<number>(5);
     const [useSemanticRanker, setUseSemanticRanker] = useState<boolean>(true);
     const [useSemanticCaptions, setUseSemanticCaptions] = useState<boolean>(false);
     const [useGPT4V, setUseGPT4V] = useState<boolean>(false);
@@ -238,10 +238,10 @@ export function Component(): JSX.Element {
                     {showUserUpload && <UploadFile className={styles.commandButton} disabled={loggedIn} />}
                     <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
                 </div>
-                <h1 className={styles.askTitle}>Ask your data</h1>
+                <h1 className={styles.askTitle}>ドキュメントに聞く</h1>
                 <div className={styles.askQuestionInput}>
                     <QuestionInput
-                        placeholder="Example: Does my plan cover annual eye exams?"
+                        placeholder="こちらに質問を入力しよう"
                         disabled={isLoading}
                         initQuestion={question}
                         onSend={question => makeApiRequest(question)}
@@ -250,7 +250,7 @@ export function Component(): JSX.Element {
                 </div>
             </div>
             <div className={styles.askBottomSection}>
-                {isLoading && <Spinner label="Generating answer" />}
+                {isLoading && <Spinner label="回答を生成する" />}
                 {!lastQuestionRef.current && <ExampleList onExampleClicked={onExampleClicked} useGPT4V={useGPT4V} />}
                 {!isLoading && answer && !error && (
                     <div className={styles.askAnswerContainer}>
@@ -284,11 +284,11 @@ export function Component(): JSX.Element {
             </div>
 
             <Panel
-                headerText="Configure answer generation"
+                headerText="回答生成を設定する"
                 isOpen={isConfigPanelOpen}
                 isBlocking={false}
                 onDismiss={() => setIsConfigPanelOpen(false)}
-                closeButtonAriaLabel="Close"
+                closeButtonAriaLabel="閉じる"
                 onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
                 isFooterAtBottom={true}
             >
@@ -296,7 +296,7 @@ export function Component(): JSX.Element {
                     id={promptTemplateFieldId}
                     className={styles.chatSettingsSeparator}
                     defaultValue={promptTemplate}
-                    label="Override prompt template"
+                    label="プロンプトテンプレートをオーバードライブする"
                     multiline
                     autoAdjustHeight
                     onChange={onPromptTemplateChange}
@@ -309,7 +309,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={temperatureFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Temperature"
+                    label="温度"
                     type="number"
                     min={0}
                     max={1}
@@ -325,7 +325,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={seedFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Seed"
+                    label="シード"
                     type="text"
                     defaultValue={seed?.toString() || ""}
                     onChange={onSeedChange}
@@ -338,7 +338,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={searchScoreFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Minimum search score"
+                    label="最低検索スコア"
                     type="number"
                     min={0}
                     step={0.01}
@@ -354,7 +354,7 @@ export function Component(): JSX.Element {
                     <TextField
                         id={rerankerScoreFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Minimum reranker score"
+                        label="最低リランカスコア"
                         type="number"
                         min={1}
                         max={4}
@@ -371,7 +371,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={retrieveCountFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Retrieve this many search results:"
+                    label="これぐらいの結果を検索する："
                     type="number"
                     min={1}
                     max={50}
@@ -386,7 +386,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={excludeCategoryFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Exclude category"
+                    label="除外されるカテゴリー"
                     defaultValue={excludeCategory}
                     onChange={onExcludeCategoryChanged}
                     aria-labelledby={excludeCategoryId}
@@ -401,7 +401,7 @@ export function Component(): JSX.Element {
                             id={semanticRankerFieldId}
                             className={styles.chatSettingsSeparator}
                             checked={useSemanticRanker}
-                            label="Use semantic ranker for retrieval"
+                            label="検索にセマンティックリランカを使う"
                             onChange={onUseSemanticRankerChange}
                             aria-labelledby={semanticRankerId}
                             onRenderLabel={(props: ICheckboxProps | undefined) => (
@@ -418,7 +418,7 @@ export function Component(): JSX.Element {
                             id={semanticCaptionsFieldId}
                             className={styles.chatSettingsSeparator}
                             checked={useSemanticCaptions}
-                            label="Use semantic captions"
+                            label="セマンティックキャプションを使う"
                             onChange={onUseSemanticCaptionsChange}
                             disabled={!useSemanticRanker}
                             aria-labelledby={semanticCaptionsId}
@@ -460,7 +460,7 @@ export function Component(): JSX.Element {
                             id={useOidSecurityFilterFieldId}
                             className={styles.chatSettingsSeparator}
                             checked={useOidSecurityFilter || requireAccessControl}
-                            label="Use oid security filter"
+                            label="oidセキュリティーフィルターを使う"
                             disabled={!loggedIn || requireAccessControl}
                             onChange={onUseOidSecurityFilterChange}
                             aria-labelledby={useOidSecurityFilterId}
@@ -477,7 +477,7 @@ export function Component(): JSX.Element {
                             id={useGroupsSecurityFilterFieldId}
                             className={styles.chatSettingsSeparator}
                             checked={useGroupsSecurityFilter || requireAccessControl}
-                            label="Use groups security filter"
+                            label="グループ単位のセキュリティーフィルターを使う"
                             disabled={!loggedIn || requireAccessControl}
                             onChange={onUseGroupsSecurityFilterChange}
                             aria-labelledby={useGroupsSecurityFilterId}
@@ -498,4 +498,4 @@ export function Component(): JSX.Element {
     );
 }
 
-Component.displayName = "Ask";
+Component.displayName = "ドキュメントに聞く";

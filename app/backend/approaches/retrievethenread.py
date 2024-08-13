@@ -18,7 +18,7 @@ class RetrieveThenReadApproach(Approach):
     """
 
     system_chat_template = (
-        "You are an intelligent assistant helping Contoso Inc employees with their healthcare plan questions and employee handbook questions. "
+        "You are an intelligent assistant helping NTT Data Smis's employees with questions about clients' business, like strategies, financial conditions. "
         + "Use 'you' to refer to the individual asking the questions even if they ask with 'I'. "
         + "Answer the following question using only the data provided in the sources below. "
         + "For tabular information return it as an html table. Do not return markdown format. "
@@ -28,15 +28,15 @@ class RetrieveThenReadApproach(Approach):
 
     # shots/sample conversation
     question = """
-'What is the deductible for the employee plan for a visit to Overlake in Bellevue?'
+'三井不動産の2024年度以降の事業戦略について、どのような戦略を立てていますか？'
 
 Sources:
-info1.txt: deductibles depend on whether you are in-network or out-of-network. In-network deductibles are $500 for employee and $1000 for family. Out-of-network deductibles are $1000 for employee and $2000 for family.
-info2.pdf: Overlake is in-network for the employee plan.
-info3.pdf: Overlake is the name of the area that includes a park and ride near Bellevue.
-info4.pdf: In-network institutions include Overlake, Swedish and others in the region
+イオン1.pdf: 商品の二極化戦略や成長領域における差別化対応を進め、売上総利益の増加でコストアップを吸収。
+三井不動産1.pptx: 事業戦略は「三本の道」を通じて成長を実現すること。
+三井不動産1.pptx: 「三本の道」、新事業領域の探索、新たなアセットクラス、コア事業の更なる成長。
+三井不動産2.pdf: 財務戦略は「成長・効率・還元」を三位一体で捉えた経営を推進すること。
 """
-    answer = "In-network deductibles are $500 for employee and $1000 for family [info1.txt] and Overlake is in-network for the employee plan [info2.pdf][info4.pdf]."
+    answer = "三井不動産の事業戦略はは「三本の道」を通じて成長を実現することです [三井不動産1.pptx]。「三本の道」は、新事業領域の探索、新たなアセットクラス、コア事業の更なる成長です[三井不動産1.pptx]."
 
     def __init__(
         self,
@@ -115,7 +115,7 @@ info4.pdf: In-network institutions include Overlake, Swedish and others in the r
         content = "\n".join(sources_content)
         user_content = q + "\n" + f"Sources:\n {content}"
 
-        response_token_limit = 1024
+        response_token_limit = 1500
         updated_messages = build_messages(
             model=self.chatgpt_model,
             system_prompt=overrides.get("prompt_template", self.system_chat_template),

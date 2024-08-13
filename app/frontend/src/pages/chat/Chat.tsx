@@ -42,7 +42,7 @@ const Chat = () => {
     const [seed, setSeed] = useState<number | null>(null);
     const [minimumRerankerScore, setMinimumRerankerScore] = useState<number>(0);
     const [minimumSearchScore, setMinimumSearchScore] = useState<number>(0);
-    const [retrieveCount, setRetrieveCount] = useState<number>(3);
+    const [retrieveCount, setRetrieveCount] = useState<number>(5);
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
     const [useSemanticRanker, setUseSemanticRanker] = useState<boolean>(true);
     const [shouldStream, setShouldStream] = useState<boolean>(true);
@@ -350,8 +350,8 @@ const Chat = () => {
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
+                            <h1 className={styles.chatEmptyStateTitle}>ドキュメントについてチャット</h1>
+                            <h2 className={styles.chatEmptyStateSubtitle}>質問をしよう</h2>
                             <ExampleList onExampleClicked={onExampleClicked} useGPT4V={useGPT4V} />
                         </div>
                     ) : (
@@ -423,7 +423,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
+                            placeholder="こちらに質問を入力しよう"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
                             showSpeechInput={showSpeechInput}
@@ -443,11 +443,11 @@ const Chat = () => {
                 )}
 
                 <Panel
-                    headerText="Configure answer generation"
+                    headerText="回答生成を設定する"
                     isOpen={isConfigPanelOpen}
                     isBlocking={false}
                     onDismiss={() => setIsConfigPanelOpen(false)}
-                    closeButtonAriaLabel="Close"
+                    closeButtonAriaLabel="閉じる"
                     onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
                     isFooterAtBottom={true}
                 >
@@ -455,7 +455,7 @@ const Chat = () => {
                         id={promptTemplateFieldId}
                         className={styles.chatSettingsSeparator}
                         defaultValue={promptTemplate}
-                        label="Override prompt template"
+                        label="プロンプトテンプレートをオーバードライブする"
                         multiline
                         autoAdjustHeight
                         onChange={onPromptTemplateChange}
@@ -473,7 +473,7 @@ const Chat = () => {
                     <TextField
                         id={temperatureFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Temperature"
+                        label="温度"
                         type="number"
                         min={0}
                         max={1}
@@ -489,7 +489,7 @@ const Chat = () => {
                     <TextField
                         id={seedFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Seed"
+                        label="シード"
                         type="text"
                         defaultValue={seed?.toString() || ""}
                         onChange={onSeedChange}
@@ -502,7 +502,7 @@ const Chat = () => {
                     <TextField
                         id={searchScoreFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Minimum search score"
+                        label="最低検索スコア"
                         type="number"
                         min={0}
                         step={0.01}
@@ -518,7 +518,7 @@ const Chat = () => {
                         <TextField
                             id={rerankerScoreFieldId}
                             className={styles.chatSettingsSeparator}
-                            label="Minimum reranker score"
+                            label="最低リランカスコア"
                             type="number"
                             min={1}
                             max={4}
@@ -540,7 +540,7 @@ const Chat = () => {
                     <TextField
                         id={retrieveCountFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Retrieve this many search results:"
+                        label="これぐらいの結果を検索する："
                         type="number"
                         min={1}
                         max={50}
@@ -555,7 +555,7 @@ const Chat = () => {
                     <TextField
                         id={excludeCategoryFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Exclude category"
+                        label="除外されるカテゴリー"
                         defaultValue={excludeCategory}
                         onChange={onExcludeCategoryChanged}
                         aria-labelledby={excludeCategoryId}
@@ -575,7 +575,7 @@ const Chat = () => {
                                 id={semanticRankerFieldId}
                                 className={styles.chatSettingsSeparator}
                                 checked={useSemanticRanker}
-                                label="Use semantic ranker for retrieval"
+                                label="検索にセマンティックリランカを使う"
                                 onChange={onUseSemanticRankerChange}
                                 aria-labelledby={semanticRankerId}
                                 onRenderLabel={(props: ICheckboxProps | undefined) => (
@@ -592,7 +592,7 @@ const Chat = () => {
                                 id={semanticCaptionsFieldId}
                                 className={styles.chatSettingsSeparator}
                                 checked={useSemanticCaptions}
-                                label="Use semantic captions"
+                                label="セマンティックキャプションを使う"
                                 onChange={onUseSemanticCaptionsChange}
                                 disabled={!useSemanticRanker}
                                 aria-labelledby={semanticCaptionsId}
@@ -612,7 +612,7 @@ const Chat = () => {
                         id={suggestFollowupQuestionsFieldId}
                         className={styles.chatSettingsSeparator}
                         checked={useSuggestFollowupQuestions}
-                        label="Suggest follow-up questions"
+                        label="追加質問を提案する"
                         onChange={onUseSuggestFollowupQuestionsChange}
                         aria-labelledby={suggestFollowupQuestionsId}
                         onRenderLabel={(props: ICheckboxProps | undefined) => (
@@ -651,7 +651,7 @@ const Chat = () => {
                                 id={useOidSecurityFilterFieldId}
                                 className={styles.chatSettingsSeparator}
                                 checked={useOidSecurityFilter || requireAccessControl}
-                                label="Use oid security filter"
+                                label="oidセキュリティーフィルターを使う"
                                 disabled={!loggedIn || requireAccessControl}
                                 onChange={onUseOidSecurityFilterChange}
                                 aria-labelledby={useOidSecurityFilterId}
@@ -668,7 +668,7 @@ const Chat = () => {
                                 id={useGroupsSecurityFilterFieldId}
                                 className={styles.chatSettingsSeparator}
                                 checked={useGroupsSecurityFilter || requireAccessControl}
-                                label="Use groups security filter"
+                                label="グループ単位のセキュリティーフィルターを使う"
                                 disabled={!loggedIn || requireAccessControl}
                                 onChange={onUseGroupsSecurityFilterChange}
                                 aria-labelledby={useGroupsSecurityFilterId}
@@ -688,7 +688,7 @@ const Chat = () => {
                         id={shouldStreamFieldId}
                         className={styles.chatSettingsSeparator}
                         checked={shouldStream}
-                        label="Stream chat completion responses"
+                        label="回答生成をストリームする"
                         onChange={onShouldStreamChange}
                         aria-labelledby={shouldStreamId}
                         onRenderLabel={(props: ICheckboxProps | undefined) => (

@@ -60,16 +60,16 @@
       "value": "${AZURE_SEARCH_SERVICE_LOCATION}"
     },
     "searchServiceSkuName": {
-      "value": "${AZURE_SEARCH_SERVICE_SKU=standard}"
+      "value": "${AZURE_SEARCH_SERVICE_SKU=standard2}"
     },
     "searchQueryLanguage": {
-      "value": "${AZURE_SEARCH_QUERY_LANGUAGE=en-us}"
+      "value": "${AZURE_SEARCH_QUERY_LANGUAGE=ja-jp}"
     },
     "searchQuerySpeller": {
       "value": "${AZURE_SEARCH_QUERY_SPELLER=lexicon}"
     },
     "searchServiceSemanticRankerLevel": {
-      "value": "${AZURE_SEARCH_SEMANTIC_RANKER=free}"
+      "value": "${AZURE_SEARCH_SEMANTIC_RANKER=standard}"
     },
     "storageAccountName": {
       "value": "${AZURE_STORAGE_ACCOUNT}"
@@ -78,13 +78,13 @@
       "value": "${AZURE_STORAGE_RESOURCE_GROUP}"
     },
     "storageSkuName": {
-      "value": "${AZURE_STORAGE_SKU=Standard_LRS}"
+      "value": "${AZURE_STORAGE_SKU=Standard_ZRS}"
     },
     "appServicePlanName": {
       "value": "${AZURE_APP_SERVICE_PLAN}"
     },
     "appServiceSkuName": {
-      "value": "${AZURE_APP_SERVICE_SKU=B1}"
+      "value": "${AZURE_APP_SERVICE_SKU=P0v3}"
     },
     "backendServiceName": {
       "value": "${AZURE_APP_SERVICE}"

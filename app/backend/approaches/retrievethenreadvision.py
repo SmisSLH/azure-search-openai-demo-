@@ -23,7 +23,7 @@ class RetrieveThenReadVisionApproach(Approach):
     """
 
     system_chat_template_gpt4v = (
-        "You are an intelligent assistant helping analyze the Annual Financial Report of Contoso Ltd., The documents contain text, graphs, tables and images. "
+        "You are an intelligent assistant helping analyze the business report of Japanese big corporations, and suggestions offered to them.The documents contain text, graphs, tables and images. "
         + "Each image source has the file name in the top left corner of the image with coordinates (10,10) pixels and is in the format SourceFileName:<file_name> "
         + "Each text source starts in a new line and has the file name followed by colon and the actual information "
         + "Always include the source name from the image or text for each fact you use in the response in the format: [filename] "
@@ -135,7 +135,7 @@ class RetrieveThenReadVisionApproach(Approach):
                     image_list.append({"image_url": url, "type": "image_url"})
             user_content.extend(image_list)
 
-        response_token_limit = 1024
+        response_token_limit = 1500
         updated_messages = build_messages(
             model=self.gpt4v_model,
             system_prompt=overrides.get("prompt_template", self.system_chat_template_gpt4v),

@@ -68,13 +68,13 @@ class ChatReadRetrieveReadVisionApproach(ChatApproach):
     @property
     def system_message_chat_conversation(self):
         return """
-        You are an intelligent assistant helping analyze the Annual Financial Report of Contoso Ltd., The documents contain text, graphs, tables and images.
-        Each image source has the file name in the top left corner of the image with coordinates (10,10) pixels and is in the format SourceFileName:<file_name>
+        You are an intelligent assistant helping analyze the business report of Japanese big corporations, and suggestions offered to them. The documents contain text, graphs, tables and images.
+        Each source has the file name in the top left corner of the image with coordinates (10,10) pixels and is in the format SourceFileName:<file_name>
         Each text source starts in a new line and has the file name followed by colon and the actual information
         Always include the source name from the image or text for each fact you use in the response in the format: [filename]
         Answer the following question using only the data provided in the sources below.
         If asking a clarifying question to the user would help, ask the question.
-        Be brief in your answers.
+        Be concise in your answers.
         For tabular information return it as an html table. Do not return markdown format.
         The text and image source can be the same file name, don't use the image title when citing the image source, only use the file name as mentioned
         If you cannot answer using the sources below, say you don't know. Return just the answer without any input texts.
@@ -111,7 +111,7 @@ class ChatReadRetrieveReadVisionApproach(ChatApproach):
         # STEP 1: Generate an optimized keyword search query based on the chat history and the last question
         user_query_request = "Generate search query for: " + original_user_query
 
-        query_response_token_limit = 100
+        query_response_token_limit = 150
         query_model = self.chatgpt_model
         query_deployment = self.chatgpt_deployment
         query_messages = build_messages(
@@ -182,7 +182,7 @@ class ChatReadRetrieveReadVisionApproach(ChatApproach):
                     image_list.append({"image_url": url, "type": "image_url"})
             user_content.extend(image_list)
 
-        response_token_limit = 1024
+        response_token_limit = 1500
         messages = build_messages(
             model=self.gpt4v_model,
             system_prompt=system_message,

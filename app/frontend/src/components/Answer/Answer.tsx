@@ -51,7 +51,7 @@ export const Answer = ({
                         <IconButton
                             style={{ color: "black" }}
                             iconProps={{ iconName: "Lightbulb" }}
-                            title="Show thought process"
+                            title="思考プロセスを表示する"
                             ariaLabel="Show thought process"
                             onClick={() => onThoughtProcessClicked()}
                             disabled={!answer.context.thoughts?.length}
@@ -59,7 +59,7 @@ export const Answer = ({
                         <IconButton
                             style={{ color: "black" }}
                             iconProps={{ iconName: "ClipboardList" }}
-                            title="Show supporting content"
+                            title="参考内容を表示する"
                             ariaLabel="Show supporting content"
                             onClick={() => onSupportingContentClicked()}
                             disabled={!answer.context.data_points}
