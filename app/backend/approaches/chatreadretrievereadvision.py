@@ -109,7 +109,7 @@ class ChatReadRetrieveReadVisionApproach(ChatApproach):
         # STEP 1: Generate an optimized keyword search query based on the chat history and the last question
         user_query_request = "Generate search query for: " + original_user_query
 
-        query_response_token_limit = 100
+        query_response_token_limit = 300
         query_model = self.chatgpt_model
         query_deployment = self.chatgpt_deployment
         query_messages = build_messages(
@@ -180,7 +180,7 @@ class ChatReadRetrieveReadVisionApproach(ChatApproach):
                     image_list.append({"image_url": url, "type": "image_url"})
             user_content.extend(image_list)
 
-        response_token_limit = 1024
+        response_token_limit = 3000
         messages = build_messages(
             model=self.gpt4v_model,
             system_prompt=system_message,
