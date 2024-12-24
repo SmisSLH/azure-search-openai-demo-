@@ -19,9 +19,9 @@ class ChatApproach(Approach, ABC):
 
     follow_up_questions_prompt_content = """Generate 3 very brief follow-up questions that the user would likely ask next.
     Enclose the follow-up questions in double angle brackets. Example:
-    <<Are there exclusions for prescriptions?>>
-    <<Which pharmacies can be ordered from?>>
-    <<What is the limit for over-the-counter medication?>>
+    <<勤怠入力に数値や文字列を入力できますか？>>
+    <<入力した勤務時間と実際の勤務時間のギャップは5分以上になるとどのように対応しますか？>>
+    <<一回入力した勤怠は後で変更できますか？>>
     Do no repeat questions that have already been asked.
     Make sure the last question ends with ">>".
     """
